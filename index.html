@@ -1,23 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-	<title></title>
-	<meta name="generator" content="LibreOffice 26.2.3.2 (Linux)"/>
-	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="00:00:00"/>
-	<style type="text/css">
-		@page { size: 8.27in 11.69in; margin: 0.79in }
-		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
-		pre { font-size: 10pt; font-family: "Liberation Mono", monospace; background: transparent }
-	</style>
-</head>
-<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><pre>&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;ja&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;title&gt;2D Golf Maker - Create &amp; Share&lt;/title&gt;
-  &lt;style&gt;
+  <meta charset="UTF-8">
+  <title>2D Golf Maker - Create & Share</title>
+  <style>
     body {
       margin: 0;
       padding: 0;
@@ -49,7 +35,7 @@
       height: 100%;
     }
 
-    /* --- UI <span lang="zh-CN">オーバーレイ </span>--- */
+    /* --- UI オーバーレイ --- */
     .overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -84,7 +70,7 @@
     .btn.success { background: #2ecc71; }
     .btn.success:hover { background: #27ae60; }
 
-    /* <span lang="zh-CN">エディター用ヘッダー</span>UI */
+    /* エディター用ヘッダーUI */
     #editorUI {
       position: absolute;
       top: 15px; left: 15px; right: 15px;
@@ -144,89 +130,89 @@
       box-sizing: border-box; resize: none; font-family: monospace;
       border: 2px solid #bdc3c7; border-radius: 4px;
     }
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
+  </style>
+</head>
+<body>
 
-  &lt;div id=&quot;gameContainer&quot;&gt;
-    &lt;canvas id=&quot;gameCanvas&quot; width=&quot;800&quot; height=&quot;600&quot;&gt;&lt;/canvas&gt;
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
 
-    &lt;div id=&quot;gamePlayUI&quot; class=&quot;hidden&quot;&gt;
-      &lt;button class=&quot;btn&quot; style=&quot;padding: 10px 20px; font-size: 16px; margin:0;&quot; onclick=&quot;retryStage()&quot;&gt;⟳ Retry&lt;/button&gt;
-      &lt;button id=&quot;btnBackToMenu&quot; class=&quot;btn danger&quot; style=&quot;padding: 10px 20px; font-size: 16px; margin:0;&quot; onclick=&quot;backToMenu()&quot;&gt;↩ Menu&lt;/button&gt;
-      &lt;button id=&quot;btnBackToEditor&quot; class=&quot;btn success hidden&quot; style=&quot;padding: 10px 20px; font-size: 16px; margin:0;&quot; onclick=&quot;returnToEditor()&quot;&gt;⛳ Back to Editor&lt;/button&gt;
-    &lt;/div&gt;
+    <div id="gamePlayUI" class="hidden">
+      <button class="btn" style="padding: 10px 20px; font-size: 16px; margin:0;" onclick="retryStage()">⟳ Retry</button>
+      <button id="btnBackToMenu" class="btn danger" style="padding: 10px 20px; font-size: 16px; margin:0;" onclick="backToMenu()">↩ Menu</button>
+      <button id="btnBackToEditor" class="btn success hidden" style="padding: 10px 20px; font-size: 16px; margin:0;" onclick="returnToEditor()">⛳ Back to Editor</button>
+    </div>
 
-    &lt;div id=&quot;mainMenu&quot; class=&quot;overlay&quot;&gt;
-      &lt;h1 style=&quot;font-size: 64px; margin-bottom: 40px; color: #f1c40f; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);&quot;&gt;2D Golf Maker&lt;/h1&gt;
-      &lt;button class=&quot;btn success&quot; onclick=&quot;startEditor()&quot; style=&quot;font-size: 24px; padding: 20px 40px;&quot;&gt;⛳ Map Editor&lt;/button&gt;
-      &lt;button class=&quot;btn&quot; onclick=&quot;showLoadDialog()&quot; style=&quot;font-size: 24px; padding: 20px 40px;&quot;&gt;📥 Load Map Code&lt;/button&gt;
-    &lt;/div&gt;
+    <div id="mainMenu" class="overlay">
+      <h1 style="font-size: 64px; margin-bottom: 40px; color: #f1c40f; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">2D Golf Maker</h1>
+      <button class="btn success" onclick="startEditor()" style="font-size: 24px; padding: 20px 40px;">⛳ Map Editor</button>
+      <button class="btn" onclick="showLoadDialog()" style="font-size: 24px; padding: 20px 40px;">📥 Load Map Code</button>
+    </div>
 
-    &lt;div id=&quot;editorUI&quot; class=&quot;hidden&quot;&gt;
-      &lt;div class=&quot;editor-row&quot;&gt;
-        &lt;div class=&quot;editor-controls&quot;&gt;
-          &lt;button class=&quot;edit-tool active&quot; id=&quot;toolSelect&quot; onclick=&quot;setTool('SELECT')&quot;&gt;Select&lt;/button&gt;
-          &lt;button class=&quot;edit-tool&quot; id=&quot;toolWall&quot; onclick=&quot;setTool('WALL')&quot;&gt;Wall&lt;/button&gt;
-          &lt;button class=&quot;edit-tool&quot; id=&quot;toolGimmick&quot; onclick=&quot;setTool('GIMMICK')&quot;&gt;Gimmick&lt;/button&gt;
+    <div id="editorUI" class="hidden">
+      <div class="editor-row">
+        <div class="editor-controls">
+          <button class="edit-tool active" id="toolSelect" onclick="setTool('SELECT')">Select</button>
+          <button class="edit-tool" id="toolWall" onclick="setTool('WALL')">Wall</button>
+          <button class="edit-tool" id="toolGimmick" onclick="setTool('GIMMICK')">Gimmick</button>
           
-          &lt;select id=&quot;gimmickType&quot; class=&quot;edit-tool hidden&quot; onchange=&quot;updateGimmickOptions()&quot;&gt;
-            &lt;option value=&quot;bounce&quot;&gt;Bounce (Drag)&lt;/option&gt;
-            &lt;option value=&quot;slow&quot;&gt;Slow (Drag)&lt;/option&gt;
-            &lt;option value=&quot;boost&quot;&gt;Boost (Drag)&lt;/option&gt;
-            &lt;option value=&quot;warp&quot;&gt;Warp (Click)&lt;/option&gt;
-          &lt;/select&gt;
-          &lt;select id=&quot;boostDir&quot; class=&quot;edit-tool hidden&quot;&gt;
-            &lt;option value=&quot;right&quot;&gt;Boost Right (→)&lt;/option&gt;
-            &lt;option value=&quot;left&quot;&gt;Boost Left (←)&lt;/option&gt;
-            &lt;option value=&quot;up&quot;&gt;Boost Up (↑)&lt;/option&gt;
-            &lt;option value=&quot;down&quot;&gt;Boost Down (↓)&lt;/option&gt;
-          &lt;/select&gt;
-        &lt;/div&gt;
+          <select id="gimmickType" class="edit-tool hidden" onchange="updateGimmickOptions()">
+            <option value="bounce">Bounce (Drag)</option>
+            <option value="slow">Slow (Drag)</option>
+            <option value="boost">Boost (Drag)</option>
+            <option value="warp">Warp (Click)</option>
+          </select>
+          <select id="boostDir" class="edit-tool hidden">
+            <option value="right">Boost Right (→)</option>
+            <option value="left">Boost Left (←)</option>
+            <option value="up">Boost Up (↑)</option>
+            <option value="down">Boost Down (↓)</option>
+          </select>
+        </div>
         
-        &lt;div class=&quot;editor-controls&quot;&gt;
-          &lt;button class=&quot;edit-tool&quot; onclick=&quot;undoAction()&quot;&gt;⟲ Undo&lt;/button&gt;
-          &lt;button class=&quot;edit-tool danger hidden&quot; id=&quot;btnDelete&quot; onclick=&quot;deleteSelected()&quot;&gt;🗑 Delete&lt;/button&gt;
-          &lt;button class=&quot;edit-tool danger&quot; onclick=&quot;resetEditor()&quot;&gt;💣 Reset&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
+        <div class="editor-controls">
+          <button class="edit-tool" onclick="undoAction()">⟲ Undo</button>
+          <button class="edit-tool danger hidden" id="btnDelete" onclick="deleteSelected()">🗑 Delete</button>
+          <button class="edit-tool danger" onclick="resetEditor()">💣 Reset</button>
+        </div>
+      </div>
       
-      &lt;div class=&quot;editor-row&quot;&gt;
-        &lt;div class=&quot;editor-controls&quot;&gt;
-          &lt;span style=&quot;color:white; font-weight:bold; font-size: 14px; text-shadow: 1px 1px 2px #000; margin-right: 5px;&quot;&gt;Par:&lt;/span&gt;
-          &lt;button class=&quot;edit-tool&quot; style=&quot;padding: 0 12px;&quot; onclick=&quot;changePar(-1)&quot;&gt;-&lt;/button&gt;
-          &lt;span id=&quot;editParDisplay&quot; style=&quot;color:#f1c40f; font-weight:bold; font-size: 18px; text-shadow: 1px 1px 2px #000; width: 24px; text-align: center;&quot;&gt;3&lt;/span&gt;
-          &lt;button class=&quot;edit-tool&quot; style=&quot;padding: 0 12px;&quot; onclick=&quot;changePar(1)&quot;&gt;+&lt;/button&gt;
-        &lt;/div&gt;
+      <div class="editor-row">
+        <div class="editor-controls">
+          <span style="color:white; font-weight:bold; font-size: 14px; text-shadow: 1px 1px 2px #000; margin-right: 5px;">Par:</span>
+          <button class="edit-tool" style="padding: 0 12px;" onclick="changePar(-1)">-</button>
+          <span id="editParDisplay" style="color:#f1c40f; font-weight:bold; font-size: 18px; text-shadow: 1px 1px 2px #000; width: 24px; text-align: center;">3</span>
+          <button class="edit-tool" style="padding: 0 12px;" onclick="changePar(1)">+</button>
+        </div>
         
-        &lt;div class=&quot;editor-controls&quot;&gt;
-          &lt;button class=&quot;edit-tool success&quot; onclick=&quot;testPlayCustomMap()&quot;&gt;▶ Test Play&lt;/button&gt;
-          &lt;button class=&quot;edit-tool success&quot; onclick=&quot;generateShareCode()&quot;&gt;📤 Export&lt;/button&gt;
-          &lt;button class=&quot;edit-tool danger&quot; onclick=&quot;backToMenu()&quot;&gt;✖ Quit&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+        <div class="editor-controls">
+          <button class="edit-tool success" onclick="testPlayCustomMap()">▶ Test Play</button>
+          <button class="edit-tool success" onclick="generateShareCode()">📤 Export</button>
+          <button class="edit-tool danger" onclick="backToMenu()">✖ Quit</button>
+        </div>
+      </div>
+    </div>
 
-    &lt;div id=&quot;codeDialog&quot; class=&quot;overlay hidden&quot;&gt;
-      &lt;div id=&quot;dialogBox&quot;&gt;
-        &lt;h2 id=&quot;dialogTitle&quot;&gt;Map Code&lt;/h2&gt;
-        &lt;textarea id=&quot;dialogTextarea&quot; placeholder=&quot;<span lang="zh-CN">ここにコードを貼り付けてください</span>...&quot;&gt;&lt;/textarea&gt;
-        &lt;div&gt;
-          &lt;button class=&quot;btn&quot; id=&quot;dialogActionBtn&quot; onclick=&quot;executeDialogAction()&quot;&gt;Load / Play&lt;/button&gt;
-          &lt;button class=&quot;btn danger&quot; onclick=&quot;closeDialog()&quot;&gt;Cancel&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
+    <div id="codeDialog" class="overlay hidden">
+      <div id="dialogBox">
+        <h2 id="dialogTitle">Map Code</h2>
+        <textarea id="dialogTextarea" placeholder="ここにコードを貼り付けてください..."></textarea>
+        <div>
+          <button class="btn" id="dialogActionBtn" onclick="executeDialogAction()">Load / Play</button>
+          <button class="btn danger" onclick="closeDialog()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  &lt;script&gt;
+  <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
     const STATE = { MENU: 0, EDIT: 1, PLAY_CUSTOM: 2 };
     let currentState = STATE.MENU;
     let dialogAction = null;
-    let isTestPlay = false; // <span lang="zh-CN">エディターからのテストプレイかどうかのフラグ</span>
+    let isTestPlay = false; // エディターからのテストプレイかどうかのフラグ
 
     const FRICTION = 0.96; 
     const STOP_THRESHOLD = 0.3;
@@ -246,7 +232,7 @@
 
     let editorTool = 'SELECT';
     let customMap = { b: {x:100, y:300}, h: {x:700, y:300}, w: [], g: [], p: 3 };
-    let playingMap = null; // <span lang="zh-CN">現在プレイ中のマップデータを保持</span>
+    let playingMap = null; // 現在プレイ中のマップデータを保持
     let draftWall = null;
     let draftGimmick = null;
     let actionHistory = []; 
@@ -286,7 +272,7 @@
     }
 
     function retryStage() {
-      if (currentState === STATE.PLAY_CUSTOM &amp;&amp; playingMap) {
+      if (currentState === STATE.PLAY_CUSTOM && playingMap) {
         loadStageFromData(playingMap);
       }
     }
@@ -301,8 +287,8 @@
       ball.x = ball.startX; ball.y = ball.startY;
       ball.vx = 0; ball.vy = 0; ball.isMoving = false;
       hole.x = mapData.h.x; hole.y = mapData.h.y;
-      walls = mapData.w.map(w =&gt; ({ ...w }));
-      gimmicks = mapData.g ? mapData.g.map(g =&gt; ({ ...g })) : [];
+      walls = mapData.w.map(w => ({ ...w }));
+      gimmicks = mapData.g ? mapData.g.map(g => ({ ...g })) : [];
       ball.warpCooldown = 0; ball.bounceCooldown = 0;
       currentPar = mapData.p; currentShots = 0; isCleared = false; mouse.isDragging = false;
     }
@@ -320,7 +306,7 @@
       selectedObj = null;
       document.getElementById('btnDelete').classList.add('hidden');
       
-      document.querySelectorAll('.edit-tool').forEach(el =&gt; el.classList.remove('active'));
+      document.querySelectorAll('.edit-tool').forEach(el => el.classList.remove('active'));
       const btn = document.getElementById('tool' + tool.charAt(0) + tool.slice(1).toLowerCase());
       if(btn) btn.classList.add('active');
 
@@ -349,9 +335,9 @@
       if (!lastAction) return;
 
       if (lastAction.action === 'add') {
-        if (lastAction.targetType === 'wall') { customMap.w = customMap.w.filter(w =&gt; w !== lastAction.obj); } 
-        else if (lastAction.targetType === 'gimmick') { customMap.g = customMap.g.filter(g =&gt; g !== lastAction.obj); }
-        if (selectedObj &amp;&amp; selectedObj.ref === lastAction.obj) { selectedObj = null; document.getElementById('btnDelete').classList.add('hidden'); }
+        if (lastAction.targetType === 'wall') { customMap.w = customMap.w.filter(w => w !== lastAction.obj); } 
+        else if (lastAction.targetType === 'gimmick') { customMap.g = customMap.g.filter(g => g !== lastAction.obj); }
+        if (selectedObj && selectedObj.ref === lastAction.obj) { selectedObj = null; document.getElementById('btnDelete').classList.add('hidden'); }
       } 
       else if (lastAction.action === 'delete') {
         if (lastAction.targetType === 'wall') { customMap.w.splice(lastAction.index, 0, lastAction.obj); } 
@@ -380,7 +366,7 @@
     }
 
     function resetEditor() {
-      if (confirm(&quot;<span lang="zh-CN">マップを初期状態にリセットしますか？</span>\n※<span lang="zh-CN">この操作は元に戻せません。</span>&quot;)) {
+      if (confirm("マップを初期状態にリセットしますか？\n※この操作は元に戻せません。")) {
         customMap = { b: {x:100, y:300}, h: {x:700, y:300}, w: [], g: [], p: 3 };
         actionHistory = [];
         selectedObj = null;
@@ -401,29 +387,29 @@
       try {
         const jsonStr = JSON.stringify(customMap);
         const base64Str = btoa(jsonStr);
-        document.getElementById('dialogTitle').innerText = &quot;Share Your Map Code!&quot;;
+        document.getElementById('dialogTitle').innerText = "Share Your Map Code!";
         document.getElementById('dialogTextarea').value = base64Str;
-        document.getElementById('dialogActionBtn').innerText = &quot;Copy to Clipboard&quot;;
-        dialogAction = () =&gt; {
-          navigator.clipboard.writeText(base64Str).then(() =&gt; { alert(&quot;<span lang="zh-CN">クリップボードにコピーしました！</span>&quot;); closeDialog(); });
+        document.getElementById('dialogActionBtn').innerText = "Copy to Clipboard";
+        dialogAction = () => {
+          navigator.clipboard.writeText(base64Str).then(() => { alert("クリップボードにコピーしました！"); closeDialog(); });
         };
         document.getElementById('codeDialog').classList.remove('hidden');
-      } catch (e) { alert(&quot;<span lang="zh-CN">コードの生成に失敗しました。</span>&quot;); }
+      } catch (e) { alert("コードの生成に失敗しました。"); }
     }
 
     function showLoadDialog() {
-      document.getElementById('dialogTitle').innerText = &quot;Enter Map Code&quot;;
-      document.getElementById('dialogTextarea').value = &quot;&quot;;
-      document.getElementById('dialogTextarea').placeholder = &quot;Base64<span lang="zh-CN">コードを貼り付け</span>...&quot;;
-      document.getElementById('dialogActionBtn').innerText = &quot;Load &amp; Play&quot;;
-      dialogAction = () =&gt; {
+      document.getElementById('dialogTitle').innerText = "Enter Map Code";
+      document.getElementById('dialogTextarea').value = "";
+      document.getElementById('dialogTextarea').placeholder = "Base64コードを貼り付け...";
+      document.getElementById('dialogActionBtn').innerText = "Load & Play";
+      dialogAction = () => {
         const code = document.getElementById('dialogTextarea').value.trim();
         if (!code) return;
         try {
           const loadedMap = JSON.parse(atob(code));
-          if (loadedMap.b &amp;&amp; loadedMap.h &amp;&amp; loadedMap.w &amp;&amp; loadedMap.p) { closeDialog(); playCustomMap(loadedMap, false); } 
-          else { alert(&quot;<span lang="zh-CN">無効なマップデータです。</span>&quot;); }
-        } catch (e) { alert(&quot;<span lang="zh-CN">コードの読み込みに失敗しました。</span>&quot;); }
+          if (loadedMap.b && loadedMap.h && loadedMap.w && loadedMap.p) { closeDialog(); playCustomMap(loadedMap, false); } 
+          else { alert("無効なマップデータです。"); }
+        } catch (e) { alert("コードの読み込みに失敗しました。"); }
       };
       document.getElementById('codeDialog').classList.remove('hidden');
     }
@@ -438,26 +424,26 @@
       return { x: (e.clientX - rect.left) * scaleX, y: (e.clientY - rect.top) * scaleY };
     }
 
-    canvas.addEventListener('pointerdown', (e) =&gt; {
+    canvas.addEventListener('pointerdown', (e) => {
       const pos = getEventPos(e);
       if (currentState === STATE.EDIT) {
         if (editorTool === 'SELECT') {
           selectedObj = null; document.getElementById('btnDelete').classList.add('hidden');
-          if (Math.hypot(pos.x - customMap.b.x, pos.y - customMap.b.y) &lt;= ball.radius * 2) { selectedObj = { type: 'ball', ref: customMap.b }; } 
-          else if (Math.hypot(pos.x - customMap.h.x, pos.y - customMap.h.y) &lt;= hole.radius) { selectedObj = { type: 'hole', ref: customMap.h }; } 
+          if (Math.hypot(pos.x - customMap.b.x, pos.y - customMap.b.y) <= ball.radius * 2) { selectedObj = { type: 'ball', ref: customMap.b }; } 
+          else if (Math.hypot(pos.x - customMap.h.x, pos.y - customMap.h.y) <= hole.radius) { selectedObj = { type: 'hole', ref: customMap.h }; } 
           else {
-            for (let i = customMap.g.length - 1; i &gt;= 0; i--) {
+            for (let i = customMap.g.length - 1; i >= 0; i--) {
               let g = customMap.g[i];
               if (g.type === 'warp') {
-                if (Math.hypot(pos.x - (g.x + g.w/2), pos.y - (g.y + g.h/2)) &lt;= Math.min(g.w,g.h)/2) { selectedObj = { type: 'gimmick', ref: g, index: i }; break; }
+                if (Math.hypot(pos.x - (g.x + g.w/2), pos.y - (g.y + g.h/2)) <= Math.min(g.w,g.h)/2) { selectedObj = { type: 'gimmick', ref: g, index: i }; break; }
               } else {
-                if (pos.x &gt;= g.x &amp;&amp; pos.x &lt;= g.x + g.w &amp;&amp; pos.y &gt;= g.y &amp;&amp; pos.y &lt;= g.y + g.h) { selectedObj = { type: 'gimmick', ref: g, index: i }; break; }
+                if (pos.x >= g.x && pos.x <= g.x + g.w && pos.y >= g.y && pos.y <= g.y + g.h) { selectedObj = { type: 'gimmick', ref: g, index: i }; break; }
               }
             }
             if (!selectedObj) {
-              for (let i = customMap.w.length - 1; i &gt;= 0; i--) {
+              for (let i = customMap.w.length - 1; i >= 0; i--) {
                 let w = customMap.w[i];
-                if (pos.x &gt;= w.x &amp;&amp; pos.x &lt;= w.x + w.w &amp;&amp; pos.y &gt;= w.y &amp;&amp; pos.y &lt;= w.y + w.h) { selectedObj = { type: 'wall', ref: w, index: i }; break; }
+                if (pos.x >= w.x && pos.x <= w.x + w.w && pos.y >= w.y && pos.y <= w.y + w.h) { selectedObj = { type: 'wall', ref: w, index: i }; break; }
               }
             }
           }
@@ -473,7 +459,7 @@
         } else if (editorTool === 'GIMMICK') {
           const type = document.getElementById('gimmickType').value;
           if (type === 'warp') {
-            const pairId = Math.floor(customMap.g.filter(g =&gt; g.type === 'warp').length / 2) + 1;
+            const pairId = Math.floor(customMap.g.filter(g => g.type === 'warp').length / 2) + 1;
             const newWarp = { type: 'warp', x: pos.x - 25, y: pos.y - 25, w: 50, h: 50, pairId: pairId };
             customMap.g.push(newWarp); 
             actionHistory.push({ action: 'add', targetType: 'gimmick', obj: newWarp }); 
@@ -491,29 +477,29 @@
         }
         if (!ball.isMoving) {
           const dx = pos.x - ball.x; const dy = pos.y - ball.y;
-          if (Math.sqrt(dx * dx + dy * dy) &lt;= ball.radius * 4) { mouse.startX = ball.x; mouse.startY = ball.y; mouse.currentX = pos.x; mouse.currentY = pos.y; mouse.isDragging = true; }
+          if (Math.sqrt(dx * dx + dy * dy) <= ball.radius * 4) { mouse.startX = ball.x; mouse.startY = ball.y; mouse.currentX = pos.x; mouse.currentY = pos.y; mouse.isDragging = true; }
         }
       }
     });
 
-    canvas.addEventListener('pointermove', (e) =&gt; {
+    canvas.addEventListener('pointermove', (e) => {
       if (!mouse.isDragging) return;
       if (e.cancelable) e.preventDefault();
       const pos = getEventPos(e); mouse.currentX = pos.x; mouse.currentY = pos.y;
 
       if (currentState === STATE.EDIT) {
-        if (editorTool === 'SELECT' &amp;&amp; selectedObj) { selectedObj.ref.x = pos.x + mouse.offsetX; selectedObj.ref.y = pos.y + mouse.offsetY; updateEditorDisplay(); } 
-        else if (editorTool === 'WALL' &amp;&amp; draftWall) { draftWall.x = Math.min(mouse.startX, pos.x); draftWall.y = Math.min(mouse.startY, pos.y); draftWall.w = Math.abs(pos.x - mouse.startX); draftWall.h = Math.abs(pos.y - mouse.startY); } 
-        else if (editorTool === 'GIMMICK' &amp;&amp; draftGimmick) { draftGimmick.x = Math.min(mouse.startX, pos.x); draftGimmick.y = Math.min(mouse.startY, pos.y); draftGimmick.w = Math.abs(pos.x - mouse.startX); draftGimmick.h = Math.abs(pos.y - mouse.startY); }
+        if (editorTool === 'SELECT' && selectedObj) { selectedObj.ref.x = pos.x + mouse.offsetX; selectedObj.ref.y = pos.y + mouse.offsetY; updateEditorDisplay(); } 
+        else if (editorTool === 'WALL' && draftWall) { draftWall.x = Math.min(mouse.startX, pos.x); draftWall.y = Math.min(mouse.startY, pos.y); draftWall.w = Math.abs(pos.x - mouse.startX); draftWall.h = Math.abs(pos.y - mouse.startY); } 
+        else if (editorTool === 'GIMMICK' && draftGimmick) { draftGimmick.x = Math.min(mouse.startX, pos.x); draftGimmick.y = Math.min(mouse.startY, pos.y); draftGimmick.w = Math.abs(pos.x - mouse.startX); draftGimmick.h = Math.abs(pos.y - mouse.startY); }
       }
     });
 
-    const finishDrag = () =&gt; {
+    const finishDrag = () => {
       if (!mouse.isDragging) return;
       mouse.isDragging = false;
       
       if (currentState === STATE.EDIT) {
-        if (editorTool === 'SELECT' &amp;&amp; selectedObj) {
+        if (editorTool === 'SELECT' && selectedObj) {
           if (selectedObj.ref.x !== mouse.dragStartX || selectedObj.ref.y !== mouse.dragStartY) {
             actionHistory.push({
               action: 'move', targetType: selectedObj.type, obj: selectedObj.ref,
@@ -521,15 +507,15 @@
             });
           }
         } 
-        else if (editorTool === 'WALL' &amp;&amp; draftWall) {
-          if (draftWall.w &gt; 10 &amp;&amp; draftWall.h &gt; 10) { 
+        else if (editorTool === 'WALL' && draftWall) {
+          if (draftWall.w > 10 && draftWall.h > 10) { 
             customMap.w.push({ ...draftWall }); 
             actionHistory.push({ action: 'add', targetType: 'wall', obj: customMap.w[customMap.w.length - 1] }); 
           }
           draftWall = null; updateEditorDisplay();
         } 
-        else if (editorTool === 'GIMMICK' &amp;&amp; draftGimmick) {
-          if (draftGimmick.w &gt; 10 &amp;&amp; draftGimmick.h &gt; 10) {
+        else if (editorTool === 'GIMMICK' && draftGimmick) {
+          if (draftGimmick.w > 10 && draftGimmick.h > 10) {
             if (draftGimmick.type === 'boost') {
               const dir = document.getElementById('boostDir').value;
               draftGimmick.dx = dir === 'right' ? 15 : dir === 'left' ? -15 : 0;
@@ -543,9 +529,9 @@
         return;
       }
       
-      if (currentState === STATE.PLAY_CUSTOM &amp;&amp; !isCleared) {
+      if (currentState === STATE.PLAY_CUSTOM && !isCleared) {
         const dx = mouse.startX - mouse.currentX; const dy = mouse.startY - mouse.currentY;
-        if (Math.abs(dx) &gt; 0 || Math.abs(dy) &gt; 0) { ball.vx = dx * POWER_MULTIPLIER; ball.vy = dy * POWER_MULTIPLIER; ball.isMoving = true; currentShots++; }
+        if (Math.abs(dx) > 0 || Math.abs(dy) > 0) { ball.vx = dx * POWER_MULTIPLIER; ball.vy = dy * POWER_MULTIPLIER; ball.isMoving = true; currentShots++; }
       }
     };
     window.addEventListener('pointerup', finishDrag);
@@ -553,27 +539,27 @@
 
     function checkPhysicsCollisions(target) {
       let bounced = false;
-      walls.forEach(wall =&gt; {
+      walls.forEach(wall => {
         const closestX = Math.max(wall.x, Math.min(target.x, wall.x + wall.w));
         const closestY = Math.max(wall.y, Math.min(target.y, wall.y + wall.h));
         const dx = target.x - closestX; const dy = target.y - closestY;
-        if (dx * dx + dy * dy &lt; target.radius * target.radius) {
+        if (dx * dx + dy * dy < target.radius * target.radius) {
           bounced = true;
-          if (Math.abs(dx) &gt; Math.abs(dy)) { target.vx *= -0.8; target.x = closestX + (dx &gt;= 0 ? target.radius : -target.radius); } 
-          else { target.vy *= -0.8; target.y = closestY + (dy &gt;= 0 ? target.radius : -target.radius); }
+          if (Math.abs(dx) > Math.abs(dy)) { target.vx *= -0.8; target.x = closestX + (dx >= 0 ? target.radius : -target.radius); } 
+          else { target.vy *= -0.8; target.y = closestY + (dy >= 0 ? target.radius : -target.radius); }
         }
       });
-      if (target.x - target.radius &lt; 0) { target.x = target.radius; target.vx *= -0.8; bounced = true; }
-      else if (target.x + target.radius &gt; canvas.width) { target.x = canvas.width - target.radius; target.vx *= -0.8; bounced = true; }
-      if (target.y - target.radius &lt; 0) { target.y = target.radius; target.vy *= -0.8; bounced = true; }
-      else if (target.y + target.radius &gt; canvas.height) { target.y = canvas.height - target.radius; target.vy *= -0.8; bounced = true; }
+      if (target.x - target.radius < 0) { target.x = target.radius; target.vx *= -0.8; bounced = true; }
+      else if (target.x + target.radius > canvas.width) { target.x = canvas.width - target.radius; target.vx *= -0.8; bounced = true; }
+      if (target.y - target.radius < 0) { target.y = target.radius; target.vy *= -0.8; bounced = true; }
+      else if (target.y + target.radius > canvas.height) { target.y = canvas.height - target.radius; target.vy *= -0.8; bounced = true; }
       return bounced;
     }
 
     function checkHoleIn() {
       const dist = Math.sqrt(Math.pow(ball.x - hole.x, 2) + Math.pow(ball.y - hole.y, 2));
       const speed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
-      if (dist &lt; hole.radius &amp;&amp; speed &lt; CLEAR_SPEED_THRESHOLD) { isCleared = true; ball.isMoving = false; ball.vx = 0; ball.vy = 0; ball.x = hole.x; ball.y = hole.y; }
+      if (dist < hole.radius && speed < CLEAR_SPEED_THRESHOLD) { isCleared = true; ball.isMoving = false; ball.vx = 0; ball.vy = 0; ball.x = hole.x; ball.y = hole.y; }
     }
 
     function drawGame() {
@@ -581,8 +567,8 @@
 
       if (currentState === STATE.EDIT) {
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; ctx.lineWidth = 1;
-        for(let i=0; i&lt;canvas.width; i+=50) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); ctx.stroke(); }
-        for(let j=0; j&lt;canvas.height; j+=50) { ctx.beginPath(); ctx.moveTo(0,j); ctx.lineTo(canvas.width,j); ctx.stroke(); }
+        for(let i=0; i<canvas.width; i+=50) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); ctx.stroke(); }
+        for(let j=0; j<canvas.height; j+=50) { ctx.beginPath(); ctx.moveTo(0,j); ctx.lineTo(canvas.width,j); ctx.stroke(); }
       }
 
       if (currentState === STATE.PLAY_CUSTOM) {
@@ -594,9 +580,9 @@
       ctx.beginPath(); ctx.arc(hole.x, hole.y, hole.radius, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; ctx.fill(); ctx.closePath();
 
-      ctx.fillStyle = '#34495e'; walls.forEach(w =&gt; ctx.fillRect(w.x, w.y, w.w, w.h));
+      ctx.fillStyle = '#34495e'; walls.forEach(w => ctx.fillRect(w.x, w.y, w.w, w.h));
 
-      gimmicks.forEach(g =&gt; {
+      gimmicks.forEach(g => {
         if (g.type === 'bounce') { ctx.fillStyle = '#f1c40f'; ctx.fillRect(g.x, g.y, g.w, g.h); } 
         else if (g.type === 'slow') { ctx.fillStyle = 'rgba(52, 152, 219, 0.4)'; ctx.fillRect(g.x, g.y, g.w, g.h); } 
         else if (g.type === 'boost') {
@@ -610,7 +596,7 @@
         }
       });
       
-      if (currentState === STATE.EDIT &amp;&amp; editorTool === 'SELECT' &amp;&amp; selectedObj) {
+      if (currentState === STATE.EDIT && editorTool === 'SELECT' && selectedObj) {
         ctx.strokeStyle = '#e74c3c'; ctx.lineWidth = 3; let r = selectedObj.ref;
         if (selectedObj.type === 'ball') { ctx.beginPath(); ctx.arc(r.x, r.y, ball.radius + 4, 0, Math.PI*2); ctx.stroke(); } 
         else if (selectedObj.type === 'hole') { ctx.beginPath(); ctx.arc(r.x, r.y, hole.radius + 4, 0, Math.PI*2); ctx.stroke(); } 
@@ -630,16 +616,16 @@
       }
 
       if (currentState === STATE.PLAY_CUSTOM) {
-        if (ball.isMoving &amp;&amp; !isCleared) {
-          if (ball.warpCooldown &gt; 0) ball.warpCooldown--;
-          if (ball.bounceCooldown &gt; 0) ball.bounceCooldown--;
+        if (ball.isMoving && !isCleared) {
+          if (ball.warpCooldown > 0) ball.warpCooldown--;
+          if (ball.bounceCooldown > 0) ball.bounceCooldown--;
           let activeAreaHit = false;
           for (let g of gimmicks) {
-            if ((g.type === 'slow' || g.type === 'boost') &amp;&amp; !activeAreaHit &amp;&amp; ball.x &gt; g.x &amp;&amp; ball.x &lt; g.x + g.w &amp;&amp; ball.y &gt; g.y &amp;&amp; ball.y &lt; g.y + g.h) {
+            if ((g.type === 'slow' || g.type === 'boost') && !activeAreaHit && ball.x > g.x && ball.x < g.x + g.w && ball.y > g.y && ball.y < g.y + g.h) {
               if (g.type === 'slow') { ball.vx *= 0.85; ball.vy *= 0.85; } 
               else if (g.type === 'boost') {
                 ball.vx += g.dx * 0.4; ball.vy += g.dy * 0.4; const speed = Math.sqrt(ball.vx*ball.vx + ball.vy*ball.vy);
-                if (speed &gt; MAX_SPEED) { ball.vx = (ball.vx/speed)*MAX_SPEED; ball.vy = (ball.vy/speed)*MAX_SPEED; }
+                if (speed > MAX_SPEED) { ball.vx = (ball.vx/speed)*MAX_SPEED; ball.vy = (ball.vy/speed)*MAX_SPEED; }
               }
               activeAreaHit = true;
             }
@@ -649,42 +635,42 @@
           const steps = Math.max(1, Math.ceil(speed / (ball.radius * 0.8)));
           const stepVx = ball.vx / steps; const stepVy = ball.vy / steps;
 
-          for (let i = 0; i &lt; steps; i++) {
+          for (let i = 0; i < steps; i++) {
             ball.x += stepVx; ball.y += stepVy;
             let collisionOccurred = checkPhysicsCollisions(ball);
             for (let g of gimmicks) {
               if (g.type === 'bounce') {
                 const closestX = Math.max(g.x, Math.min(ball.x, g.x + g.w)); const closestY = Math.max(g.y, Math.min(ball.y, g.y + g.h));
                 const dx = ball.x - closestX; const dy = ball.y - closestY;
-                if (dx * dx + dy * dy &lt; ball.radius * ball.radius) {
-                  if (ball.bounceCooldown &lt;= 0) {
-                    if (Math.abs(dx) &gt; Math.abs(dy)) { ball.vx *= -1.5; ball.x = closestX + (dx &gt;= 0 ? ball.radius : -ball.radius); } 
-                    else { ball.vy *= -1.5; ball.y = closestY + (dy &gt;= 0 ? ball.radius : -ball.radius); }
+                if (dx * dx + dy * dy < ball.radius * ball.radius) {
+                  if (ball.bounceCooldown <= 0) {
+                    if (Math.abs(dx) > Math.abs(dy)) { ball.vx *= -1.5; ball.x = closestX + (dx >= 0 ? ball.radius : -ball.radius); } 
+                    else { ball.vy *= -1.5; ball.y = closestY + (dy >= 0 ? ball.radius : -ball.radius); }
                     const currentSpd = Math.hypot(ball.vx, ball.vy);
-                    if (currentSpd &gt; MAX_SPEED) { ball.vx = (ball.vx/currentSpd)*MAX_SPEED; ball.vy = (ball.vy/currentSpd)*MAX_SPEED; }
+                    if (currentSpd > MAX_SPEED) { ball.vx = (ball.vx/currentSpd)*MAX_SPEED; ball.vy = (ball.vy/currentSpd)*MAX_SPEED; }
                     ball.bounceCooldown = 3;
                   } else {
-                    if (Math.abs(dx) &gt; Math.abs(dy)) { ball.vx *= -0.8; ball.x = closestX + (dx &gt;= 0 ? ball.radius : -ball.radius); } 
-                    else { ball.vy *= -0.8; ball.y = closestY + (dy &gt;= 0 ? ball.radius : -ball.radius); }
+                    if (Math.abs(dx) > Math.abs(dy)) { ball.vx *= -0.8; ball.x = closestX + (dx >= 0 ? ball.radius : -ball.radius); } 
+                    else { ball.vy *= -0.8; ball.y = closestY + (dy >= 0 ? ball.radius : -ball.radius); }
                   }
                   collisionOccurred = true; break;
                 }
-              } else if (g.type === 'warp' &amp;&amp; ball.warpCooldown &lt;= 0 &amp;&amp; ball.x &gt; g.x &amp;&amp; ball.x &lt; g.x + g.w &amp;&amp; ball.y &gt; g.y &amp;&amp; ball.y &lt; g.y + g.h) {
-                let pair = gimmicks.find(p =&gt; p.type === 'warp' &amp;&amp; p.pairId === g.pairId &amp;&amp; p !== g);
+              } else if (g.type === 'warp' && ball.warpCooldown <= 0 && ball.x > g.x && ball.x < g.x + g.w && ball.y > g.y && ball.y < g.y + g.h) {
+                let pair = gimmicks.find(p => p.type === 'warp' && p.pairId === g.pairId && p !== g);
                 if (pair) { ball.x = pair.x + pair.w / 2; ball.y = pair.y + pair.h / 2; ball.warpCooldown = 30; collisionOccurred = true; break; }
               }
             }
             if (collisionOccurred) break; 
           }
           checkHoleIn();
-          if (Math.abs(ball.vx) &lt; STOP_THRESHOLD &amp;&amp; Math.abs(ball.vy) &lt; STOP_THRESHOLD) { ball.vx = 0; ball.vy = 0; ball.isMoving = false; }
+          if (Math.abs(ball.vx) < STOP_THRESHOLD && Math.abs(ball.vy) < STOP_THRESHOLD) { ball.vx = 0; ball.vy = 0; ball.isMoving = false; }
         }
 
-        if (mouse.isDragging &amp;&amp; !isCleared) {
+        if (mouse.isDragging && !isCleared) {
           const dx = mouse.startX - mouse.currentX; const dy = mouse.startY - mouse.currentY; const power = Math.sqrt(dx * dx + dy * dy);
           ctx.beginPath(); ctx.moveTo(ball.x, ball.y); ctx.lineTo(mouse.currentX, mouse.currentY);
           ctx.strokeStyle = 'rgba(231, 76, 60, 0.8)'; ctx.lineWidth = 2; ctx.stroke();
-          if (power &gt; 5) {
+          if (power > 5) {
             const angle = Math.atan2(dy, dx); const arrowLength = Math.min(power * 1.2, 250);
             const tailW = Math.min(power * 0.05 + 2, 12); const headL = Math.min(power * 0.15 + 10, 40);
             ctx.save(); ctx.translate(ball.x, ball.y); ctx.rotate(angle);
@@ -698,10 +684,10 @@
       ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
       ctx.fillStyle = ball.color; ctx.fill(); ctx.closePath();
 
-      if (isCleared &amp;&amp; currentState === STATE.PLAY_CUSTOM) {
+      if (isCleared && currentState === STATE.PLAY_CUSTOM) {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.6)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.textAlign = 'center';
-        let text = &quot;Bogey!&quot;; let color = &quot;#e74c3c&quot;;
-        if (currentShots &lt; currentPar) { text = &quot;Birdie!&quot;; color = &quot;#f1c40f&quot;; } else if (currentShots === currentPar) { text = &quot;Par!&quot;; color = &quot;#2ecc71&quot;; }
+        let text = "Bogey!"; let color = "#e74c3c";
+        if (currentShots < currentPar) { text = "Birdie!"; color = "#f1c40f"; } else if (currentShots === currentPar) { text = "Par!"; color = "#2ecc71"; }
         ctx.fillStyle = color; ctx.font = 'bold 80px sans-serif'; ctx.fillText(text, canvas.width / 2, canvas.height / 2 - 10);
         ctx.fillStyle = '#ffffff'; ctx.font = '24px sans-serif';
         ctx.fillText(isTestPlay ? 'Click to Edit' : 'Click to Menu', canvas.width / 2, canvas.height / 2 + 60);
@@ -709,8 +695,6 @@
       requestAnimationFrame(drawGame);
     }
     drawGame();
-  &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
+  </script>
 </body>
 </html>
